@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <title>Simple Weather</title>
+</head>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@1,500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap');
+
+.lora {
+    font-family: 'Lora', serif;
+    font-size: 0.8rem;
+}
+
+.nuntio {
+    font-family: 'Nunito', sans-serif;
+}
+</style>
+<body>
+    <div class="bg-primary container rounded-3 shadow-lg p-1 mt-3 nuntio">
+    <h1 class='fs-3 m-3 text-white'>Weather App</h1>
+    <h6 class='m-3 text-white'>from https://home.openweathermap.org/</h6>
+</div>
+    <br>
+
+    <div class="text-center text-danger fw-bold m-3">
+        {% if messages %}
+        {% for message in messages  %}
+        {{message}}
+        {% endfor %}
+        {% endif %}
+    </div>
+
+    <div class="col-5 container">
+        <form class="form-floating" action="">
+            <input class="form-control shadow-lg" id="floatingInputValue" name='name' placeholder="City">
+            <label for="floatingInputValue">Entry city</label>
+            <button type="submit" class="btn btn-secondary btn-sm mt-3 container">Add</button>
+        </form>
+    </div>
+
+
+    <div class="d-flex flex-row flex-wrap lora">
+        {% for city in city_data  %}
+
+        <div class="card m-3 shadow-lg" style="width: 10rem;">
+            <img src="http://openweathermap.org/img/w/{{ city.icon }}.png" class="card-img-top" style='width: 60px;'
+                alt="icon">
+            <div class="card-body" style="height: 10rem;" >
+                <h5 class="card-title">{{city.city.name}}</h5>
+                <p class="card-text">{{city.desc}}</p>
+                <p class="card-text">{{city.temp}}</p>
+            </div>
+                <a href="{% url 'delete' city.city.id %}" class="btn btn-danger btn-sm">Delete</a>
+            
+        </div>
+        {% endfor %}
+    </div>
+    <footer class="footer  bg-light fixed-bottom">
+        <div class="container">
+          <span class="text-success lora fw-bold">2021 MesuT</span>
+        </div>
+      </footer>
+</body>
+
+</html>
